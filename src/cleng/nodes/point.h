@@ -1,8 +1,9 @@
 #pragma once
 
 #include <tuple>
-#include <string>
 #include "../../namics.h"
+#include <map>
+#include <string>
 
 struct Point {
 
@@ -21,54 +22,30 @@ public:
 
     Point() : x(0), y(0), z(0) {}
 
-    Point negate() const {
-        return {-x, -y, -z};
+    Point negate() const { return {-x, -y, -z}; }
+
+    int &operator[](int index) {
+        if (index == 0) return static_cast<int &>(this->x);
+        if (index == 1) return static_cast<int &>(this->y);
+        if (index == 2) return static_cast<int &>(this->z);
+        else {cout << "[WARNING!] index is out of the range" << endl; return static_cast<int &>(this->x);}
     }
 
-    Point operator+(const Point &p) const {
-        return {x + p.x, y + p.y, z + p.z};
-    }
+    Point operator+(const Point &p) const { return {x + p.x, y + p.y, z + p.z}; }
 
-    Point operator-(const Point &p) const {
-        return {x - p.x, y - p.y, z - p.z};
-    }
+    Point operator-(const Point &p) const { return {x - p.x, y - p.y, z - p.z}; }
 
-    Point operator%(const Point &box) const {
-        return {x % box.x, y % box.y, z % box.z};
-    }
+    Point operator%(const Point &box) const { return {x % box.x, y % box.y, z % box.z}; }
 
-    bool operator==(const Point &p) const {
-        return x == p.x && y == p.y && z == p.z;
-    }
+    bool operator==(const Point &p) const { return x == p.x && y == p.y && z == p.z; }
 
-    bool operator!=(const Point &p) const {
-        return x != p.x || y != p.y || z != p.z;
-    }
+    bool operator!=(const Point &p) const { return x != p.x || y != p.y || z != p.z; }
 
-    bool all_elements_less_than(const Point &p) const {
-        return x < p.x and y < p.y and z < p.z;
-    }
+    bool all_elements_less_than(const Point &p) const { return x < p.x and y < p.y and z < p.z; }
 
-    bool more_all_elements_than(const Point &p) const {
-        return x > p.x and y > p.y and z > p.z;
-    }
+    bool operator<(const Point &other) const { return make_tuple(x, y, z) < make_tuple(other.x, other.y, other.z); }
 
-    bool all_elements_in_range(const Point &box) const {
-        bool x_res = false; bool y_res = false; bool z_res = false;
-        if ((x < box.x) and (x >= 0)) x_res=true;
-        if ((y < box.y) and (y >= 0)) y_res=true;
-        if ((z < box.z) and (z >= 0)) z_res=true;
-        return x_res and y_res and z_res;
-    }
-
-    bool operator<(const Point &other) const {
-        return std::make_tuple(x, y, z) < std::make_tuple(other.x, other.y, other.z);
-    }
-
-    bool operator>(const Point &other) const {
-        return std::make_tuple(x, y, z) > std::make_tuple(other.x, other.y, other.z);
-    }
-
+    bool operator>(const Point &other) const { return make_tuple(x, y, z) > make_tuple(other.x, other.y, other.z); }
 
     std::string to_string() const {
         return "{ " + std::to_string(this->x) + ", " + std::to_string(this->y) + ", " + std::to_string(this->z) + " }";
@@ -79,6 +56,5 @@ public:
         Real dy = pow(y - other.y, 2);
         Real dz = pow(z - other.z, 2);
         return sqrt(dx + dy + dz);
-
     }
 };

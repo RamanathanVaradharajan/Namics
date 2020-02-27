@@ -17,7 +17,7 @@ Real Random::getReal(int min, int max) {
     return uniform_real_distribution<Real>(min, max)(engine);
 }
 
-int Random::getIntExcludeArray(int min, int max, vector<int> exclude_values) {
+int Random::getIntExcludeArray(int min, int max, const vector<int>& exclude_values) {
     int out = getInt(min, max);
 
     int coincidence = 0;

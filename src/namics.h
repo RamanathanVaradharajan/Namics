@@ -11,12 +11,10 @@
 #include <string>
 #include <fstream>
 #include <sstream>
-//#define SSTR( x ) static_cast< std::ostringstream & >(( std::ostringstream() << std::dec << x )).str()
 #include <vector>
 #include <iterator>
 #include <algorithm>
 //#include <f2c.h>
-
 #include <iomanip>
 
 using namespace std;
@@ -43,7 +41,7 @@ extern bool debug;
 #endif
 
 enum MoleculeType {monomer, linear, branched, dendrimer, comb, ring};
-enum transfer {to_segment,to_cleng, to_teng, to_bm, reset};
+enum transfer {to_segment, to_cleng, to_teng, to_bm, reset};
 enum EngineType {SCF, CLENG, MESODYN, TENG};
 
 template<typename T>

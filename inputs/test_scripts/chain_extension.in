@@ -1,0 +1,50 @@
+// test_linear_chain 2019-04-18
+lat : flat : gradients : 3
+lat : flat : n_layers_x : 50
+lat : flat : n_layers_y : 50
+lat : flat : n_layers_z : 50
+lat : flat : geometry : planar
+lat : flat : lattice_type : simple_cubic
+lat : flat : lowerbound_x : periodic
+lat : flat : upperbound_x : periodic
+lat : flat : lowerbound_y : periodic
+lat : flat : upperbound_y : periodic
+lat : flat : lowerbound_z : periodic
+lat : flat : upperbound_z : periodic
+
+mon : W : freedom : free
+mon : A : freedom : free
+mon : X : freedom : clamp
+mon : X : clamp_info : (30,30,32)(30,30,34);
+mon : X : sub_box_size : 18
+
+mol : pol : freedom : clamped
+mol : pol : composition : (X)1(A)49(X)1
+mol : water : freedom : solvent
+mol : water : composition : (W)1
+
+newton : isaac : method : DIIS
+newton : isaac : m : 4
+newton : isaac : deltamax : 0.1
+newton : isaac : e_info : false
+newton : isaac : iterationlimit : 7000
+newton : isaac : tolerance : 1e-7
+
+out_info : folder : path : data
+
+output : vtk : append : false
+vtk : mol : pol : phi
+
+output : kal : append : true
+kal : output : variable : MC_attempt
+kal : output : variable : free_energy
+kal : sys : variable : free_energy
+
+cleng : parameters : MCS : 7
+cleng : parameters : seed : 1
+cleng : parameters : movement_along : 1
+cleng : parameters : sign_move : +
+cleng : parameters : user_node_id_move : 0
+cleng : parameters : metropolis : false
+
+start

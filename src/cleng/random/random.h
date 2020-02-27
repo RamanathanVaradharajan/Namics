@@ -16,7 +16,7 @@ public:
 
     Real getReal(int min, int max);
 
-    int getIntExcludeArray(int min, int max, vector<int> exclude_values);
+    int getIntExcludeArray(int min, int max, const vector<int>& exclude_values);
 
 
 private:

@@ -1,8 +1,6 @@
 #pragma once
 
-#include "point.h"
-#include <map>
-#include <string>
+#include "../matrix.h"
 
 class Node {
 public:
@@ -10,15 +8,19 @@ public:
 
     virtual void shift(const Point &shift) = 0;
 
+    virtual void shift(const Matrix<Real> &matrix) = 0;
+
     virtual void pushSystemPoints(std::map<int, Point> &pointsById) const = 0;
 
-    virtual bool operator<(const Node &other) const {
-        return point() < other.point();
-    }
+    virtual bool operator<(const Node &other) const {return point() < other.point();}
 
     virtual std::string to_string() const = 0;
 
-    virtual bool inSubBoxRange(const Point &subBoxRange, const Point &shift) const = 0;
+    virtual bool inSubBoxRange(const Point &subBoxRange) const = 0;
+
+    virtual Point _returnSystemPoint() const = 0;
+
+    virtual bool isIdInside(const int &ID) const = 0;
 
     virtual ~Node() = default;
 };

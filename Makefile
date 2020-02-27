@@ -26,6 +26,11 @@ CFLAGS      := -Wall -Ofast -std=c++14 -march=native
 LIB         := -lm -lpthread
 INC         := -I/usr/local/cuda-9.0/include -I/usr/local/include -I/usr/include
 #INCDEP      := -I$(INCDIR)
+ifdef CLENG_EXPERIMENTAL
+CFLAGS      := -Wall -Ofast -std=c++14 -DCLENG_EXPERIMENTAL
+LIB         += -L/usr/lib/x86_64-linux-gnu/hdf5/serial -lhdf5_cpp -lhdf5
+INC         += -I/usr/include/hdf5/serial
+endif
 ifdef CUDA
 	LIB        += -L/usr/local/cuda/lib64 -lcuda -lcudart -lcurand
 	CFLAGS     += -DCUDA
